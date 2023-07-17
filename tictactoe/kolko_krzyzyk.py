@@ -68,8 +68,8 @@ def sprawdz_remis():
 
 def restart():
     global BG_COLOR, WIDTH, HEIGHT
-    WIDTH=600
-    HEIGHT=600
+    # WIDTH=600
+    # HEIGHT=600
     screen=pygame.display.set_mode( (WIDTH, HEIGHT), pygame.RESIZABLE)
     screen.fill(BG_COLOR)
     draw_line()
@@ -110,14 +110,14 @@ def plansza():
     if sprawdz_wygrana()==True: 
         pygame.draw.rect(screen, (189, 180, 85), (WIDTH//3.33,HEIGHT//2.3,WIDTH//2.5,HEIGHT//7.5))
         if player==1:
-            screen.blit(gracz, (WIDTH//3, HEIGHT//2.14))
+            screen.blit(gracz, (WIDTH//2.8, HEIGHT//2.14))
         else:
-            screen.blit(komputer, (WIDTH//3, HEIGHT//2.14))
+            screen.blit(komputer, (WIDTH//2.8, HEIGHT//2.14))
         koniec_gry=True
 
     if sprawdz_zapelnienie() and koniec_gry==False:
         pygame.draw.rect(screen, (189, 180, 85), (WIDTH//3.33,HEIGHT//2.3,WIDTH//2.5,HEIGHT//7.5))
-        screen.blit(remis, (250, 283))
+        screen.blit(remis, (WIDTH//2.35, HEIGHT//2.14))
         koniec_gry=True
 
 
@@ -233,10 +233,12 @@ while True:
                     if sprawdz_czy_wolne(clicked_row, clicked_col):
                         zaznacz_na_tablicy(clicked_row, clicked_col, player)
 
+                        plansza()
                         if koniec_gry==False:
                             player=2
                     x=clicked_row
                     y=clicked_col
+                    
             elif player==2 and koniec_gry==False and sprawdz_zapelnienie: #computer
                 x1=None
                 if moves>=2 and poziom=="trudny":
@@ -274,5 +276,6 @@ while True:
             if event.type==pygame.VIDEORESIZE:
                 WIDTH=event.w
                 HEIGHT=event.h
+                koniec_gry=False
                 plansza()
         pygame.display.update()
